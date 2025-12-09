@@ -13,8 +13,9 @@
 #SBATCH --output={out_dir}/%x-%j.out
 #SBATCH --error={out_dir}/%x-%j.err
 
-# For quick tests on max 2 nodes: #SBATCH --qos=boost_qos_dbg
-# For large node numbers (> 64 nodes): a dd #SBATCH --qos=boost_qos_bprod
+# For development and immediate alloc: #SBATCH --partition=dev-g
+# For quick tests on single device (GPU): #SBATCH --partition=small-g
+# For big runs and many nodes: #SBATCH --partition=standard-g
 
 ######################################################################
 # PATHS

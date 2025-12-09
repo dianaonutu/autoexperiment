@@ -1,36 +1,18 @@
 #!/bin/bash
 
 # Container image
-CONTAINER="/scratch/project_462000963/containers/MegatronTrainingLumi_x86_64.sif"
+CONTAINER="/scratch/project_462000963/containers/lumi-pytorch-rocm-6.2.4-python-3.12-pytorch-v2.6.0-dockerhash-ef203c810cc9.sif"
 
 # Leonardo project directory
 PROJECT_DIR="/scratch/project_462000963/"
 PROJECT_FAST_DIR="/flash/project_462000963"
 
 # Path to Megatron-LM repo
-MEGATRON_PATH="/scratch/project_462000963/users/donutu/ROCm-Megatron-LM"
+MEGATRON_PATH="/pfs/lustrep4/scratch/project_462000963/users/rluukkon/git/oellm_pretrain/Megatron-LM"
 
-export MACHINE_NAME=LUMI
  
 export CC=gcc-12
 export CXX=g++-12
-
-
-export SLURM_ACCOUNT="project_462000963"
-export DATA_ACCOUNT="project_462000963"
-export SLURM_PARTITION="dev-g"
-export SLURM_PARTITION_DEBUG="dev-g"
-export SLURM_QOS="normal"
-export SLURM_QOS_DEBUG="normal"
-
-export LUMI_SCRATCH="/project_462000963/"
-export WORK="/scratch/$DATA_ACCOUNT/users/$USER"
-export DATA_DIR="/scratch/project_462000963/preprocessed"
-export OUTPUT_DIR="$WORK/output"
-export APPTAINER_CACHEDIR="/scratch/project_462000963/containers"
-export APPTAINER_TMPDIR="$WORK/.tmp"
-export CONTAINER_CACHE_DIR="/scratch/project_462000963/containers"
-export ARCH="$(uname -m)"
 
 # MEGATRON CACHE
 MEGATRON_CACHE_BASE=$PROJECT_FAST_DIR
@@ -50,16 +32,11 @@ BIND_DIRS=$BIND_DIRS:/boot/config-5.14.21-150500.55.49_13.0.56-cray_shasta_c,/op
 # ENV VARS and SETTING
 ######################################################################
 
-export LOCAL_RANK=0
-export RANK=0
-export WORLD_SIZE=16
-
-
 # DISTRIBUTED SETUP
 MASTER_ADDR=$(scontrol show hostnames $SLURM_JOB_NODELIST | head -n 1)  # master node hostname
 #MASTER_ADDR="$(nslookup "$MASTER_ADDR" | grep -oP '(?<=Address: ).*')"  # IP numeric address
 export MASTER_ADDR="$MASTER_ADDR"
-export MASTER_PORT=20074
+export MASTER_PORT=53541
 echo "MASTER_ADDR:MASTER_PORT set to: ${MASTER_ADDR}:${MASTER_PORT}"
 
 # PERFORMANCE SETUP
@@ -98,13 +75,9 @@ export NCCL_NCHANNELS_PER_PEER=16
 export NCCL_MIN_CHANNELS=${NCCL_NCHANNELS_PER_PEER}
 
 #NCCL/RCCL
-export NCCL_NET_GDR_LEVEL=PHB
-export NCCL_SOCKET_IFNAME=hsn0,hsn1,hsn2,hsn3
 export NCCL_DMABUF_ENABLE=1                             #Enable DMA buffers from the RCCL side
 export NCCL_TUNER_PLUGIN=/scratch/project_462000394/containers/for-turkunlp-team/tuner-2025-07-09/librccl-tuner.so
 export CUDA_DEVICE_MAX_CONNECTIONS=1
-export NVTE_DEBUG=0
-export NVTE_DEBUG_LEVEL=0
 ##TRITON##
 #export TRITON_ALWAYS_COMPILE=1                         #Always force Triton to compile even in the case of cache hit.
 
