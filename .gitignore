@@ -7,3 +7,5 @@ wandb/
 
 *.pt
 *.wandb
+
+autoexperiment.egg-info/
