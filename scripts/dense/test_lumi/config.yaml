@@ -9,18 +9,18 @@
 autoexp:
 
     # Helpers and cluster setup script.
-    oellm_folder: "/scratch/project_462000963/users/niccolo/autoexperiment/oellm"
+    oellm_folder: "/scratch/project_462000963/users/donutu/autoexperiment/oellm"
     helpers: "{oellm_folder}/helpers"
     cluster: "{oellm_folder}/cluster"
 
     # Output folder. For this example we write in this folder.
-    out_folder: "/scratch/project_462000963/users/niccolo/oellm_scaling"
+    out_folder: "/scratch/project_462000963/users/donutu/oellm_scaling"
     logs: "{out_folder}/logs"
     ckpts: "{out_folder}/ckpts"
     scripts: "{out_folder}/sbatch"
 
     # Templated sbatch.
-    template: "/scratch/project_462000963/users/niccolo/autoexperiment/scripts/dense/test_lumi/train.sbatch"
+    template: "/scratch/project_462000963/users/donutu/autoexperiment/scripts/dense/test_lumi/train.sbatch"
 
     # Destination for sbatch script and command to execute.
     sbatch_script: "{scripts}/{name}.sbatch"
