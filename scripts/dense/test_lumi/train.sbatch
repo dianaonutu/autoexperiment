@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --time=00:12:00
+#SBATCH --time=08:00:00
 #SBATCH --nodes={nodes}
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=32
@@ -14,8 +14,9 @@
 #SBATCH --output={out_dir}/%x-%j.out
 #SBATCH --error={out_dir}/%x-%j.err
 
-# For quick tests on max 2 nodes: #SBATCH --qos=boost_qos_dbg
-# For large node numbers (> 64 nodes): a dd #SBATCH --qos=boost_qos_bprod
+# For quick tests (max 30 min), max 2 (1 running) jobs, max 32 nodes: #SBATCH --partition=dev-g
+# For small jobs (max 3 days), max 210 (200 running) jobs, max 4 nodes: #SBATCH --partition=small-g
+# For large jobs (max 2 days), max 210 (200 running) jobs, max 1024 nodes: #SBATCH --partition=standard-g
 
 ######################################################################
 # PATHS
