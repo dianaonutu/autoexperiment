@@ -10,6 +10,9 @@ PROJECT_FAST_DIR="/flash/project_462000963"
 # Path to Megatron-LM repo
 MEGATRON_PATH="/scratch/project_462000963/users/donutu/ROCm-Megatron-LM"
 
+# Set WandB entity
+export WANDB_ENTITY="openeurollm-project"
+
 export MACHINE_NAME=LUMI
  
 export CC=gcc-12
@@ -49,11 +52,6 @@ BIND_DIRS=$BIND_DIRS:/boot/config-5.14.21-150500.55.49_13.0.56-cray_shasta_c,/op
 ######################################################################
 # ENV VARS and SETTING
 ######################################################################
-
-export LOCAL_RANK=0
-export RANK=0
-export WORLD_SIZE=16
-
 
 # DISTRIBUTED SETUP
 MASTER_ADDR=$(scontrol show hostnames $SLURM_JOB_NODELIST | head -n 1)  # master node hostname
